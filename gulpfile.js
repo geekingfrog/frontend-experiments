@@ -31,6 +31,7 @@ gulp.task('stylus', function() {
 gulp.task('styles', ['bower', 'stylus'], function() {
   return gulp.src([
     buildPath+'/*/*.css',
+    '!'+buildPath+'/fira/**/*',
     // bowerPath+'/fira/fira.css',
     buildPath+'/main.css'
   ])
