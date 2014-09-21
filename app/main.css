@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'FiraSans';
+  src: url("/assets/fonts/FiraSans3109/WEB/FiraSans-Regular.woff") format('woff');
+}
+@font-face {
+  font-family: 'FiraSans';
+  src: url("/assets/fonts/FiraSans3109/WEB/FiraSans-Regular.woff") format('woff');
+}
+body {
+  background: #ffc0cb;
+}

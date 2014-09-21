@@ -1,0 +1,25 @@
+{
+  "name": "gongcheFront3",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node_modules/bower/bin/bower install"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-server-livereload": "^1.0.1",
+    "gulp-stylus": "^1.3.3",
+    "gulp-sourcemaps": "^1.2.2",
+    "gulp-newer": "^0.3.0",
+    "main-bower-files": "^2.0.0",
+    "bower": "^1.3.11",
+    "del": "^0.1.3",
+    "event-stream": "^3.1.7",
+    "gulp-filter": "^1.0.2",
+    "gulp-concat": "^2.4.1",
+    "gulp-changed": "^1.0.0"
+  }
+}

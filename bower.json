@@ -1,0 +1,19 @@
+{
+  "name": "gongcheFront3",
+  "version": "0.0.0",
+  "authors": [
+    "Grégoire Charvet 黑瓜 <greg@geekingfrog.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize.css": "~3.0.1",
+    "fira": "~0.1.0"
+  }
+}
