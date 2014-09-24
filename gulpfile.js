@@ -33,7 +33,8 @@ gulp.task('styles', ['bower', 'stylus'], function() {
     buildPath+'/*/*.css',
     '!'+buildPath+'/fira/**/*',
     // bowerPath+'/fira/fira.css',
-    buildPath+'/main.css'
+    'public/assets/flaticon.css',
+    buildPath+'/main.css',
   ])
   // .pipe(changed(destPath))
   .pipe(concat('main.css'))
@@ -41,8 +42,16 @@ gulp.task('styles', ['bower', 'stylus'], function() {
 });
 
 gulp.task('fonts', function() {
-  return gulp.src(bowerPath+'/**/*.woff')
-  .pipe(gulp.dest(destPath+'/fonts'));
+  return es.merge(
+    gulp.src(bowerPath+'/**/*.woff')
+    .pipe(gulp.dest(destPath+'/fonts'))
+  ,
+    gulp.src([
+      'public/assets/flaticon.*',
+      '!public/assets/flaticon.css'
+    ])
+    .pipe(gulp.dest(destPath+'/fonts'))
+  )
 });
 
 gulp.task('server', function() {

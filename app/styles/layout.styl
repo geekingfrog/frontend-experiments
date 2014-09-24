@@ -21,10 +21,15 @@
 
 .landing-menu-item
   flex 1 1 auto
+  flex-flow column
   width 100%
   display flex
   justify-content space-around
   align-items center
   border .1em solid black
+  font-size 2em
   @media screen and (min-width: 600px)
     background steelblue
+
+  [class^="flaticon-"]
+    font-size 2em
