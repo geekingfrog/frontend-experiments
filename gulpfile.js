@@ -7,6 +7,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var changed = require('gulp-changed');
 var filter = require('gulp-filter');
 var concat = require('gulp-concat');
+var react = require('gulp-react');
 var mainBowerFiles = require('main-bower-files');
 
 var bowerPath = 'bower_components';
@@ -54,6 +55,31 @@ gulp.task('fonts', function() {
   )
 });
 
+gulp.task('lib', ['bower'], function() {
+  return gulp.src([
+    buildPath+'/react/react.js'
+  ])
+  .pipe(concat('lib.js'))
+  .pipe(gulp.dest(buildPath));
+});
+
+gulp.task('jsx', function() {
+  gulp.src('app/views/**/*.jsx')
+  .pipe(react())
+  .pipe(concat('views.js'))
+  .pipe(gulp.dest(buildPath));
+});
+
+// gulp.task('js', ['lib', 'jsx'], function() {
+gulp.task('js', ['lib', 'jsx'], function() {
+  return gulp.src([
+    buildPath+'/lib.js',
+    buildPath+'/views.js'
+  ])
+  .pipe(concat('main.js'))
+  .pipe(gulp.dest(destPath));
+});
+
 gulp.task('server', function() {
   return gulp.src('./dist')
   .pipe(server({
@@ -74,11 +100,14 @@ gulp.task('watch', function() {
   ],
   ['styles']);
   gulp.watch('app/index.html', ['html']);
+  gulp.watch('app/**/*.jsx', ['js']);
 });
 
 gulp.task('default', [
+  'fonts',
   'html',
   'styles',
+  'js',
   'server',
   'watch'
 ]);

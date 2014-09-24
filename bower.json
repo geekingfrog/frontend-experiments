@@ -15,6 +15,7 @@
   "dependencies": {
     "normalize.css": "~3.0.1",
     "fira": "~0.1.0",
-    "fontawesome": "~4.2.0"
+    "fontawesome": "~4.2.0",
+    "react": "~0.11.2"
   }
 }
