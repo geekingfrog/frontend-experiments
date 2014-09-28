@@ -3,12 +3,13 @@ var es = require('event-stream');
 var gulp = require('gulp');
 var server = require('gulp-server-livereload');
 var stylus = require('gulp-stylus');
-var sourcemaps = require('gulp-sourcemaps');
 var changed = require('gulp-changed');
-var filter = require('gulp-filter');
 var concat = require('gulp-concat');
-var react = require('gulp-react');
-var mainBowerFiles = require('main-bower-files');
+var plumber = require('gulp-plumber');
+
+var source = require('vinyl-source-stream');
+var browserify = require('browserify');
+var reactify = require('reactify');
 
 var bowerPath = 'bower_components';
 var buildPath = 'build';
@@ -17,8 +18,15 @@ var assetsPath = destPath+'/assets';
 var libPath = destPath+'/lib';
 var fontsPath = destPath+'/fonts';
 
+function onError(err) {
+  console.log(err);
+}
+
 gulp.task('bower', function() {
-  return gulp.src(bowerPath+'/**/*')
+  return gulp.src([
+    bowerPath+'/normalize.css/**/*',
+    bowerPath+'/fira/**/*'
+  ])
   .pipe(changed(buildPath))
   .pipe(gulp.dest(buildPath));
 });
@@ -31,9 +39,7 @@ gulp.task('stylus', function() {
 
 gulp.task('styles', ['bower', 'stylus'], function() {
   return gulp.src([
-    buildPath+'/*/*.css',
-    '!'+buildPath+'/fira/**/*',
-    // bowerPath+'/fira/fira.css',
+    buildPath+'/normalize.css',
     'public/assets/flaticon.css',
     buildPath+'/main.css',
   ])
@@ -55,28 +61,11 @@ gulp.task('fonts', function() {
   )
 });
 
-gulp.task('lib', ['bower'], function() {
-  return gulp.src([
-    buildPath+'/react/react.js'
-  ])
-  .pipe(concat('lib.js'))
-  .pipe(gulp.dest(buildPath));
-});
-
-gulp.task('jsx', function() {
-  gulp.src('app/views/**/*.jsx')
-  .pipe(react())
-  .pipe(concat('views.js'))
-  .pipe(gulp.dest(buildPath));
-});
-
-// gulp.task('js', ['lib', 'jsx'], function() {
-gulp.task('js', ['lib', 'jsx'], function() {
-  return gulp.src([
-    buildPath+'/lib.js',
-    buildPath+'/views.js'
-  ])
-  .pipe(concat('main.js'))
+gulp.task('js', function() {
+  return browserify('./app/index.js')
+  .transform(reactify)
+  .bundle()
+  .pipe(source('main.js'))
   .pipe(gulp.dest(destPath));
 });
 

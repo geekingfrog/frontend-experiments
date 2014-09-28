@@ -7,8 +7,3 @@ var Test = React.createClass({
     )
   }
 });
-
-React.renderComponent(
-  <Test />,
-  document.getElementById('example')
-);
