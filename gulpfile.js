@@ -89,6 +89,7 @@ gulp.task('watch', function() {
   ],
   ['styles']);
   gulp.watch('app/index.html', ['html']);
+  gulp.watch('app/**/*.js', ['js']);
   gulp.watch('app/**/*.jsx', ['js']);
 });
 

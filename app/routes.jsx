@@ -8,6 +8,7 @@ var DefaultRoute = ReactRouter.DefaultRoute;
 
 var App = require('./app.jsx');
 var Index = require('./views/index.jsx');
+var BusList = require('./views/busList.jsx');
 
 var routes = (
   <Routes location="history">
@@ -15,8 +16,9 @@ var routes = (
       <Route name="index" handler={Index} />
       <DefaultRoute handler={Index}/>
     </Route>
+
+    <Route name="busList" path="busList" handler={BusList} />
   </Routes>
 );
 
 module.exports = routes;
-
