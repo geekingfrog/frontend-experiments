@@ -8,16 +8,22 @@ var DefaultRoute = ReactRouter.DefaultRoute;
 
 var App = require('./app.jsx');
 var Index = require('./views/index.jsx');
-var BusList = require('./views/busList.jsx');
+var BusLines = require('./views/busLines.jsx');
+var BusLinesIndex = require('./views/busLinesIndex.jsx');
+var BusLine = require('./views/busLine.jsx');
 
 var routes = (
-  <Routes location="history">
+  <Routes location="hash">
     <Route name="app" path="/" handler={App}>
-      <Route name="index" handler={Index} />
+      <Route name="index" path="/index" handler={Index} />
+
+      <Route name="busLines" path="/busLines" handler={BusLines}>
+        <Route name="busLine" path=":id" handler={BusLine} />
+        <DefaultRoute handler={BusLinesIndex}/>
+      </Route>
+
       <DefaultRoute handler={Index}/>
     </Route>
-
-    <Route name="busList" path="busList" handler={BusList} />
   </Routes>
 );
 

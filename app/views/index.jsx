@@ -10,7 +10,7 @@ var Index = React.createClass({
     <div className="landing-menu">
 
       <div className="landing-menu-row">
-        <Link to="busList" className="landing-menu-item">
+        <Link to="busLines" className="landing-menu-item">
           <i className="flaticon-bus5"></i>Lines
         </Link>
         <div className="landing-menu-item"><i className="flaticon-heart"></i>Favorites</div>
