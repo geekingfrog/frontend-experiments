@@ -19,7 +19,7 @@ var routes = (
 
       <Route name="busLines" path="/busLines" handler={BusLines}>
         <Route name="busLine" path=":id" handler={BusLine} />
-        <DefaultRoute handler={BusLinesIndex}/>
+        <DefaultRoute handler={BusLinesIndex} addHandlerKey={false}/>
       </Route>
 
       <DefaultRoute handler={Index}/>

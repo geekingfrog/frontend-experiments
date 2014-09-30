@@ -8,3 +8,6 @@ React.renderComponent(
   routes,
   document.body
 );
+
+var $ = require('jquery');
+window.$ = $;
