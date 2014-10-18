@@ -1,3 +1,4 @@
+'use strict';
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -10,4 +11,4 @@ React.renderComponent(
 );
 
 var $ = require('jquery');
-window.$ = $;
+var Dispatcher = require('flux').Dispatcher;
