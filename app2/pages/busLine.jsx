@@ -5,6 +5,8 @@ var React = require('react');
 var lineActionCreator = require('../actions/lineActionCreator');
 var lineStore = require('../stores/lineStore');
 var createStoreMixin = require('../mixins/createStoreMixin');
+var propTypes = React.propTypes;
+var BusDetails = require('../components/busDetails.jsx');
 
 module.exports = React.createClass({
 
@@ -28,10 +30,16 @@ module.exports = React.createClass({
   render() {
     console.log('rendering busLine component with props:', this.props);
     var line = this.state.line;
-    return (
-      line ?
-      <div> line here {line.id} -- {line.from} -- {line.to} </div> :
-      <div> loading line </div>
-    )
+    console.log('line to render:', line);
+
+    if(line) {
+      return ( <div>
+              <BusDetails lineId={line.id} direction="direct"/>
+              <BusDetails lineId={line.id} direction="reverse"/>
+              </div>
+      )
+    } else {
+      return <div> loading line </div>
+    }
   }
 });

@@ -47,7 +47,7 @@ var lineActionCreator = {
       });
     })
     .catch(function(err) {
-      console.log('request line error:', err);
+      console.log('request line error:', err, err.stack);
       appDispatcher.handleServerAction({
         type: actionTypes.REQUEST_LINE_ERROR,
         payload: { error: err }
