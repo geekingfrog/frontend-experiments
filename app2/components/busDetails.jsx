@@ -3,8 +3,10 @@
 
 var React = require('react');
 var PropTypes = React.PropTypes;
-var lineStore = require('../stores/lineStore');
 var createStoreMixin = require('../mixins/createStoreMixin');
+
+var lineStore = require('../stores/lineStore');
+var lineActionCreator = require('../actions/lineActionCreator');
 
 var StopDetails = require('./stopDetails.jsx');
 

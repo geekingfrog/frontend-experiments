@@ -22,6 +22,18 @@ module.exports = React.createClass({
     lineActionCreator.requestLine(this.props.params.lineId);
   },
 
+  componentDidMount() {
+    var lineId = this.props.params.lineId;
+    this.updateTimer = setInterval(function() {
+      console.log('updating line');
+      lineActionCreator.requestLine(lineId);
+    }, 10 * 1000);
+  },
+
+  componentWillUnmount() {
+    clearInterval(this.updateTimer);
+  },
+
   componentWillReceiveProps(nextProps) {
     console.log('BUSLINE component will receive props here', this.props, nextProps);
     return true;
