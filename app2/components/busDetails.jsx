@@ -28,7 +28,7 @@ module.exports = React.createClass({
     console.log('will mount busdetail component here');
   },
 
-  componentShouldUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     var shouldUpdate = this.state !== nextState;
     console.log('should update bus details?', shouldUpdate);
     return shouldUpdate;
