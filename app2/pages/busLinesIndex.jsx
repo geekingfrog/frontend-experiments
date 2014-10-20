@@ -79,7 +79,7 @@ var LineListing = React.createClass({
 
     return (
       <div>
-      <input type="text" value={this.state.input} readOnly/>
+      <input type="text" value={this.state.input} readOnly placeholder="Search"/>
       <br />
       <input type="button" value="0" onClick={this.handleInput}/>
       <input type="button" value="1" onClick={this.handleInput}/>
