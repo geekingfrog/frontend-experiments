@@ -4,13 +4,14 @@
 var React = require('react');
 var lineActionCreator = require('../actions/lineActionCreator');
 var lineStore = require('../stores/lineStore');
+var globalStore = require('../stores/globalStore');
 var createStoreMixin = require('../mixins/createStoreMixin');
 var propTypes = React.propTypes;
 var BusDetails = require('../components/busDetails.jsx');
 
 module.exports = React.createClass({
 
-  mixins: [createStoreMixin(lineStore)],
+  mixins: [createStoreMixin(lineStore, globalStore)],
 
   getStateFromStores() {
     return {

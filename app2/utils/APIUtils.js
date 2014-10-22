@@ -2,11 +2,7 @@
 
 var API_ROOT = 'http://localhost:8080/api/';
 var Promise = require('bluebird');
-// var request = require('request');
-// var get = Promise.promisify(request);
-var $ = require('jquery');
-
-// busLines: Promise.cast($.getJSON('http://localhost:8080/api/line'))
+var request = require('superagent');
 
 var APIUtils = {
   getJSON(endpoint) {
@@ -14,7 +10,14 @@ var APIUtils = {
       endpoint = API_ROOT + endpoint;
     }
 
-    return Promise.cast($.getJSON(endpoint));
+    return new Promise(function(resolve, reject) {
+      request.get(endpoint)
+      .end(function(err, res) {
+        if(err) return reject(err);
+
+        resolve(JSON.parse(res.text));
+      });
+    });
   }
 };
 
