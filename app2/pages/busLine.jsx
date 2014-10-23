@@ -26,7 +26,6 @@ module.exports = React.createClass({
   componentDidMount() {
     var lineId = this.props.params.lineId;
     this.updateTimer = setInterval(function() {
-      console.log('updating line');
       lineActionCreator.requestLine(lineId);
     }, 10 * 1000);
   },
@@ -41,15 +40,14 @@ module.exports = React.createClass({
   },
 
   render() {
-    console.log('rendering busLine component with props:', this.props);
     var line = this.state.line;
-    console.log('line to render:', line);
 
     if(line) {
-      return ( <div>
-              <BusDetails lineId={line.id} direction="direct"/>
-              <BusDetails lineId={line.id} direction="reverse"/>
-              </div>
+      return (
+        <div>
+          <BusDetails lineId={line.id} direction="direct"/>
+          <BusDetails lineId={line.id} direction="reverse"/>
+        </div>
       )
     } else {
       return <div> loading line </div>

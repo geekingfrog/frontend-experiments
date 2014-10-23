@@ -14,13 +14,11 @@ var BusLines = React.createClass({
   mixins: [createStoreMixin(lineStore)],
 
   componentWillMount() {
-    console.log('going to mount component busLinesIndex');
     lineActionCreator.requestLines();
   },
 
   getStateFromStores() {
     var lines = lineStore.getLines();
-    console.log('getting state from stores here', !lines);
     return {
       lines: lines,
       isLoading: !lines
@@ -28,7 +26,6 @@ var BusLines = React.createClass({
   },
 
   render: function() {
-    console.log('this.state?', this.state, this.state.isLoading);
     return (
       (this.state.isLoading) ?
       <h2>loading</h2> :
@@ -59,7 +56,6 @@ var LineListing = React.createClass({
 
     if(input) {
       var r = new RegExp(input, 'i');
-      console.log('filtering with input %s', input);
       filteredList = filteredList.filter(bus => {
         return r.test(bus.id);
       });
@@ -70,7 +66,6 @@ var LineListing = React.createClass({
       return [<Link to="/line/:id" params={params}> {bus.id} from: {bus.from} -- to: {bus.to} </Link>, <br/>];
     }).toArray();
 
-    console.log('list length: %d', list.length);
     if(list.length) {
       list = <ul>{list}</ul>
     } else {

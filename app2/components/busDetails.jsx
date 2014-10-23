@@ -20,17 +20,11 @@ module.exports = React.createClass({
   mixins: [createStoreMixin(lineStore)],
 
   getStateFromStores() {
-    console.log('got line for details:', lineStore.getLine(this.props.lineId));
     return {line: lineStore.getLine(this.props.lineId)};
-  },
-
-  componentWillMount() {
-    console.log('will mount busdetail component here');
   },
 
   shouldComponentUpdate(nextProps, nextState) {
     var shouldUpdate = this.state !== nextState;
-    console.log('should update bus details?', shouldUpdate);
     return shouldUpdate;
   },
 
@@ -51,12 +45,17 @@ module.exports = React.createClass({
       stops = <div> loading data for each stops... </div>
     } else {
       stops = stops.map( stop => {
-        return <StopDetails key={stop.name} stop={stop} />;
+        return <StopDetails
+          key={stop.name}
+          stop={stop}
+          lineId={line.id}
+          direction={this.props.direction}
+          />;
       });
     }
 
     return <div>
-    <h3>From: {from} -- To: {to}</h3>
+    <h3>{line.id} From: {from} -- To: {to}</h3>
     {stops}
     </div>
   }

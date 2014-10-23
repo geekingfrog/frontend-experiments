@@ -2,7 +2,6 @@
 
 var appDispatcher = require('../dispatcher/appDispatcher');
 var actionTypes = require('../constants/actionTypes');
-var foo = 'bar';
 var { getJSON } = require('../utils/APIUtils');
 
 var lineActionCreator = {
@@ -17,7 +16,6 @@ var lineActionCreator = {
 
     getJSON('line')
     .then(function(lines) {
-      console.log('got lines from server');
       appDispatcher.handleServerAction({
         type: actionTypes.REQUEST_LINES_SUCCESS,
         payload: { lines: lines }

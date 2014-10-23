@@ -8,5 +8,8 @@ module.exports = keyMirror({
 
   REQUEST_LINE: null,
   REQUEST_LINE_SUCCESS: null,
-  REQUEST_LINE_ERROR: null
+  REQUEST_LINE_ERROR: null,
+
+  ADD_TO_FAVORITE: null,
+  REMOVE_FROM_FAVORITE: null
 });

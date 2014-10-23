@@ -21,7 +21,6 @@ function createStoreMixin(...stores) {
     },
 
     handleStoresChanged() {
-      console.log('getting state from store because store change event');
       if (this.isMounted()) {
         this.setState(this.getStateFromStores(this.props));
       }
