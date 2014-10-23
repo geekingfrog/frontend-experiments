@@ -44,9 +44,9 @@ module.exports = React.createClass({
     if(!stops) {
       stops = <div> loading data for each stops... </div>
     } else {
-      stops = stops.map( stop => {
+      stops = stops.map( (stop, idx) => {
         return <StopDetails
-          key={stop.name}
+          key={stop.name+idx}
           stop={stop}
           lineId={line.id}
           direction={this.props.direction}

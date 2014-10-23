@@ -14,7 +14,11 @@ module.exports = React.createClass({
           <Link to="busLines" className="landing-menu-item">
             <i className="flaticon-bus5"></i>Lines
           </Link>
-          <div className="landing-menu-item"><i className="flaticon-heart"></i>Favorites</div>
+          <div className="landing-menu-item">
+            <Link to="favorites">
+              Favorites
+            </Link>
+          </div>
         </div>
 
         <div className="landing-menu-row">

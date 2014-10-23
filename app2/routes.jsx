@@ -12,6 +12,8 @@ var BusLines = require('./pages/busLines.jsx');
 var BusLinesIndex = require('./pages/busLinesIndex.jsx');
 var BusLine = require('./pages/busLine.jsx');
 
+var Favorites = require('./pages/favorites.jsx');
+
 module.exports = (
   <Routes location="hash">
     <Route name="app" path='/' handler={App}>
@@ -21,6 +23,8 @@ module.exports = (
         <Route name="busLine" path=":lineId" handler={BusLine} />
         <DefaultRoute handler={BusLinesIndex} addHandlerKey={false}/>
       </Route>
+
+      <Route name="favorites" path="/favorites" handler={Favorites}/>
 
       <DefaultRoute handler={Index}/>
     </Route>

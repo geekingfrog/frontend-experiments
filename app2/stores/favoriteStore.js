@@ -5,7 +5,15 @@ var { createStore } = require('../utils/storeUtils');
 var actionTypes = require('../constants/actionTypes');
 var appDispatcher = require('../dispatcher/appDispatcher');
 
-var _favorites = Immutable.Vector();
+var persistPrefix = 'fav';
+
+// init from localstorage
+var _favorites = Immutable.Map.empty().withMutations(map => {
+  Object.keys(window.localStorage).forEach( key => {
+    if(key.slice(0, persistPrefix.length) !== persistPrefix) return;
+    map.set(key.slice(persistPrefix.length), JSON.parse(localStorage.getItem(key)));
+  })
+});
 
 function makeKey(lineId, direction, stop) {
   return ''+lineId+direction+stop;
@@ -14,10 +22,13 @@ function makeKey(lineId, direction, stop) {
 var favoriteStore = createStore({
   getFavorites() { return _favorites; },
   isFavorite(lineId, direction, stop) {
-    // this is likely to be slow when number of favorite lines goes up.
-    // Refactor using some kind of map if required later
-    var res = _favorites.some(key => key === makeKey(lineId, direction, stop));
-    return res;
+    // console.log('looking for key:', makeKey(lineId, direction, stop));
+    // console.log('in: ', _favorites.toJS());
+    var res = _favorites.get(makeKey(lineId, direction, stop));
+
+    if(res) console.log('got:', res);
+
+    return !!_favorites.get(makeKey(lineId, direction, stop));
   }
 });
 
@@ -31,11 +42,14 @@ favoriteStore.dispatchToken = appDispatcher.register(function(data) {
   if(payload) var {lineId, direction, stop} = payload;
 
   if(type === actionTypes.ADD_TO_FAVORITE) {
-    _favorites = _favorites.push(makeKey(lineId, direction, stop));
+    var key = makeKey(lineId, direction, stop);
+    _favorites = _favorites.set(key, payload);
+    window.localStorage.setItem(persistPrefix+key, JSON.stringify(payload));
     favoriteStore.emitChange();
   } else if(type === actionTypes.REMOVE_FROM_FAVORITE) {
     var keyToRemove = makeKey(lineId, direction, stop);
-    _favorites = _favorites.filter(k => k !== keyToRemove).toVector();
+    _favorites = _favorites.remove(keyToRemove);
+    window.localStorage.removeItem(persistPrefix+keyToRemove);
     favoriteStore.emitChange();
   }
 });
