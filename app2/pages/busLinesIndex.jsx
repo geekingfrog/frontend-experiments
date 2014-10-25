@@ -57,13 +57,13 @@ var LineListing = React.createClass({
     if(input) {
       var r = new RegExp(input, 'i');
       filteredList = filteredList.filter(bus => {
-        return r.test(bus.id);
+        return r.test(bus.get('id'));
       });
     }
 
     var list = filteredList.map(bus => {
-      var params = {id: bus.id};
-      return [<Link to="/line/:id" params={params}> {bus.id} from: {bus.from} -- to: {bus.to} </Link>, <br/>];
+      var params = {id: bus.get('id')};
+      return [<Link to="/line/:id" params={params}> {bus.get('id')} from: {bus.get('from')} -- to: {bus.get('to')} </Link>, <br/>];
     }).toArray();
 
     if(list.length) {

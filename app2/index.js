@@ -5,6 +5,11 @@ require('6to5/polyfill');
 var React = require('react');
 var routes = require('./routes.jsx');
 
+var lineActionCreator = require('./actions/lineActionCreator');
+
+// fetch all lines at startup for the moment
+lineActionCreator.requestLines();
+
 React.renderComponent(routes, document.body);
 
 // var [foo, bar] = ['foo', 'bar'];

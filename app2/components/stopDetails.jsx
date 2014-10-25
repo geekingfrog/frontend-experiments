@@ -13,30 +13,29 @@ module.exports = React.createClass({
 
   mixins: [createStoreMixin(favoriteStore)],
 
+  propTypes: {
+    lineId: PropTypes.string.isRequired,
+    direction: PropTypes.oneOf(['direct', 'reverse']).isRequired,
+    stopName: PropTypes.string.isRequired,
+    timeToNext: PropTypes.number
+  },
+
+
   getStateFromStores() {
     var isFavorite = favoriteStore.isFavorite(
       this.props.lineId,
       this.props.direction,
-      this.props.stop.name
+      this.props.stopName
     );
 
     return { isFavorite }
-  },
-
-  propTypes: {
-    lineId: PropTypes.string.isRequired,
-    direction: PropTypes.oneOf(['direct', 'reverse']).isRequired,
-    stop: PropTypes.shape({
-      name: PropTypes.string,
-      timeToNext: PropTypes.number
-    }).isRequired
   },
 
   toggleFavorite(ev) {
     var actionData = {
       lineId: this.props.lineId,
       direction: this.props.direction,
-      stop: this.props.stop.name
+      stopName: this.props.stopName
     };
 
     if(this.state.isFavorite) {
@@ -47,12 +46,13 @@ module.exports = React.createClass({
   },
 
   render() {
-    var stop = this.props.stop;
-    var timeToNext = stop.timeToNext;
+    var timeToNext = this.props.timeToNext;
 
     var fav = this.state.isFavorite ? '<3' : '';
 
-    if(timeToNext === -1) {
+    if(timeToNext === undefined) {
+      timeToNext = 'loading';
+    } else if(timeToNext === -1) {
       timeToNext = 'No bus';
     } else if(timeToNext < 60) {
       timeToNext = 'soon';
@@ -62,7 +62,7 @@ module.exports = React.createClass({
 
     return (
       <div>
-        {stop.name} ({timeToNext} -- {this.props.stop.timeToNext})
+        {this.props.stopName} ({timeToNext} -- {this.props.timeToNext})
         {fav}
         <input type="button" value="fav" onClick={this.toggleFavorite}/>
       </div>

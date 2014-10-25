@@ -5,17 +5,17 @@ var actionTypes = require('../constants/actionTypes');
 
 var favoriteActionCreator = {
 
-  addToFavorite({lineId: lineId, direction: direction, stop: stop}) {
+  addToFavorite({lineId: lineId, direction: direction, stopName: stopName}) {
     appDispatcher.handleViewAction({
       type: actionTypes.ADD_TO_FAVORITE,
-      payload: { lineId, direction, stop }
+      payload: { lineId, direction, stopName }
     });
   },
 
-  removeFromFavorite({lineId: lineId, direction: direction, stop: stop}) {
+  removeFromFavorite({lineId: lineId, direction: direction, stopName: stopName}) {
     appDispatcher.handleViewAction({
       type: actionTypes.REMOVE_FROM_FAVORITE,
-      payload: { lineId, direction, stop }
+      payload: { lineId, direction, stopName }
     });
   }
 

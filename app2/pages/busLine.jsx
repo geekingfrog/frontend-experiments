@@ -43,10 +43,11 @@ module.exports = React.createClass({
     var line = this.state.line;
 
     if(line) {
+      var lineId = line.get('id');
       return (
         <div>
-          <BusDetails lineId={line.id} direction="direct"/>
-          <BusDetails lineId={line.id} direction="reverse"/>
+          <BusDetails lineId={lineId} direction="direct"/>
+          <BusDetails lineId={lineId} direction="reverse"/>
         </div>
       )
     } else {

@@ -22,7 +22,7 @@ var lineActionCreator = {
       });
     })
     .catch(function(err) {
-      console.log('got error:', err);
+      console.log('got error:', err, err.stack);
       appDispatcher.handleServerAction({
         type: actionTypes.REQUEST_LINES_ERROR,
         payload: { error: err }
