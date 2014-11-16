@@ -8,7 +8,7 @@ var appDispatcher = require('../dispatcher/appDispatcher');
 var persistPrefix = 'fav';
 
 // init from localstorage
-var _favorites = Immutable.Map.empty().withMutations(map => {
+var _favorites = Immutable.Map().withMutations(map => {
   Object.keys(window.localStorage).forEach( key => {
     if(key.slice(0, persistPrefix.length) !== persistPrefix) return;
     var val = localStorage.getItem(key);
