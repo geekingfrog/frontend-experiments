@@ -1,16 +1,18 @@
 'use strict';
 
 var Immutable = require('immutable');
-var { createStore } = require('../utils/storeUtils');
 var appDispatcher = require('../dispatcher/appDispatcher');
 var actionTypes = require('../constants/actionTypes');
+var { createStore } = require('../utils/storeUtils');
 
-var _lines;
+var _lines = Immutable.OrderedMap();
 
 var lineStore = createStore({
   getLines() { return _lines; },
   getLine(id) { return _lines && _lines.get(id); }
 });
+
+var appDispatcher = require('../dispatcher/appDispatcher');
 
 lineStore.dispatchToken = appDispatcher.register(function(data) {
   var {source, action} = data;
