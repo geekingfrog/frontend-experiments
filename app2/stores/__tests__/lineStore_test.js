@@ -12,8 +12,7 @@ describe('lineStore', function() {
 
   var actionTypes = require('../../constants/actionTypes');
 
-  var appDispatcher;
-  var callback;
+  var appDispatcher, callback, lineStore;
 
   var actionLinesSuccess = {
     source: 'ignored',

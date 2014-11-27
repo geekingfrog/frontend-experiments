@@ -5,11 +5,14 @@ var { createStore } = require('../utils/storeUtils');
 var actionTypes = require('../constants/actionTypes');
 var appDispatcher = require('../dispatcher/appDispatcher');
 
-var persistPrefix = 'fav';
+var persistPrefix = 'fav-';
+
+var localStorage = window.localStorage;
 
 // init from localstorage
 var _favorites = Immutable.Map().withMutations(map => {
-  Object.keys(window.localStorage).forEach( key => {
+  for(var i=0, n=localStorage.length; i<n; ++i) {
+    var key = localStorage.key(i);
     if(key.slice(0, persistPrefix.length) !== persistPrefix) return;
     var val = localStorage.getItem(key);
     try {
@@ -18,7 +21,7 @@ var _favorites = Immutable.Map().withMutations(map => {
     } catch(err) {
       console.error('cannot parse', val, err.stack);
     }
-  })
+  }
 });
 
 function makeKey(lineId, direction, stopName) {
@@ -44,12 +47,12 @@ favoriteStore.dispatchToken = appDispatcher.register(function(data) {
   if(type === actionTypes.ADD_TO_FAVORITE) {
     var key = makeKey(lineId, direction, stopName);
     _favorites = _favorites.set(key, payload);
-    window.localStorage.setItem(persistPrefix+key, JSON.stringify(payload));
+    localStorage.setItem(persistPrefix+key, JSON.stringify(payload));
     favoriteStore.emitChange();
   } else if(type === actionTypes.REMOVE_FROM_FAVORITE) {
     var keyToRemove = makeKey(lineId, direction, stopName);
     _favorites = _favorites.remove(keyToRemove);
-    window.localStorage.removeItem(persistPrefix+keyToRemove);
+    localStorage.removeItem(persistPrefix+keyToRemove);
     favoriteStore.emitChange();
   }
 });
