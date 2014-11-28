@@ -2,7 +2,6 @@
 'use strict';
 
 var ReactRouter = require('react-router');
-var Routes = ReactRouter.Routes;
 var Route = ReactRouter.Route;
 var DefaultRoute = ReactRouter.DefaultRoute;
 
@@ -15,18 +14,16 @@ var BusLine = require('./pages/busLine.jsx');
 var Favorites = require('./pages/favorites.jsx');
 
 module.exports = (
-  <Routes location="hash">
-    <Route name="app" path='/' handler={App}>
-      <Route name="index" path="/index" handler={Index} />
+  <Route name="app" path='/' handler={App}>
+    <Route name="index" path="/index" handler={Index} />
 
-      <Route name="busLines" path="/line" handler={BusLines}>
-        <Route name="busLine" path=":lineId" handler={BusLine} />
-        <DefaultRoute handler={BusLinesIndex} addHandlerKey={false}/>
-      </Route>
-
-      <Route name="favorites" path="/favorites" handler={Favorites}/>
-
-      <DefaultRoute handler={Index}/>
+    <Route name="busLines" path="/line" handler={BusLines}>
+      <Route name="busLine" path=":lineId" handler={BusLine} />
+      <DefaultRoute handler={BusLinesIndex} addHandlerKey={false}/>
     </Route>
-  </Routes>
+
+    <Route name="favorites" path="/favorites" handler={Favorites}/>
+
+    <DefaultRoute handler={Index}/>
+  </Route>
 );

@@ -1,6 +1,7 @@
 'use strict';
 
 require('6to5/polyfill');
+require('es6-shim');
 
 var React = require('react');
 var routes = require('./routes.jsx');
@@ -10,14 +11,7 @@ var lineActionCreator = require('./actions/lineActionCreator');
 // fetch all lines at startup for the moment
 lineActionCreator.requestLines();
 
-React.renderComponent(routes, document.body);
-
-// var [foo, bar] = ['foo', 'bar'];
-// var a = [10,9,8,7];
-// for(var i of a) {
-//   console.log(a[i]);
-// }
-//
-// console.log('stuff here v2');
-// throw new Error('boom here');
-// console.log('no more stuff');
+var Router = require('react-router');
+Router.run(routes, function(Handler) {
+  React.render(React.createElement(Handler), document.body);
+});

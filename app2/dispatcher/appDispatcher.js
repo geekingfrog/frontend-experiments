@@ -1,10 +1,9 @@
 'use strict';
 
 var { Dispatcher } = require('flux');
-var copyProperties = require('react/lib/copyProperties');
 var payloadSources = require('../constants/payloadSources');
 
-var AppDispatcher = copyProperties(new Dispatcher(), {
+var AppDispatcher = Object.assign(new Dispatcher(), {
   handleServerAction(action) {
     if(!action.type) {
       throw new Error('Empty action.type. You likely mistyped the action');

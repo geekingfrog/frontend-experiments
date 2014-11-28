@@ -27,7 +27,8 @@ module.exports = React.createClass({
     var header;
     if(line) {
       var [from, to] = [line.get('from'), line.get('to')];
-      if(this.props.direction === 'reverse') [from, to] = [to, from];
+      // brackets are mandatory otherwise 6to5 will fail
+      if(this.props.direction === 'reverse') { [from, to] = [to, from]; }
       header = <div>{line.get('id')} -- {from} -> {to}</div>
     } else {
       header = <div>{this.props.lineId}</div>
