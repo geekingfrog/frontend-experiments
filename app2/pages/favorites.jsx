@@ -21,10 +21,7 @@ module.exports = React.createClass({
     var favorites = favoriteStore.getFavorites();
     for(var [key, fav] of favorites.entries()) {
       var line = lineStore.getLine(fav.lineId);
-      console.log('got line from lineStore: ', line);
-      // if(line
     }
-    // this.fetchFavorites(favorites);
     return { favorites };
   },
 
@@ -37,22 +34,24 @@ module.exports = React.createClass({
   },
 
   render() {
-    console.log('got state:', this.state.favorites.toJS());
-    var favs = this.state.favorites.toVector().map(function(fav, idx) {
-      return (
+    console.log('got state:', this.state.favorites);
+    var favs = [];
+    for(var fav of this.state.favorites.values()) {
+      var key = fav.lineId+fav.direction+fav.stopName;
+      favs.push(
         <LineHeader
-          key={idx}
-          lineId={fav.get('lineId')}
-          direction={fav.get('direction')}
+          key={key}
+          lineId={fav.lineId}
+          direction={fav.direction}
           >
           <StopDetails
-            lineId={fav.get('lineId')}
-            direction={fav.get('direction')}
-            stopName={fav.get('stopName')}
+            lineId={fav.lineId}
+            direction={fav.direction}
+            stopName={fav.stopName}
           />
         </LineHeader>
       )
-    });
-    return <div>{favs.toJS()}</div>
+    }
+    return <div>{favs}</div>
   }
 });

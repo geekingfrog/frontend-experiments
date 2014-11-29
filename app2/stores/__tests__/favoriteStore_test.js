@@ -1,6 +1,5 @@
 'use strict';
 
-jest.dontMock('immutable');
 jest.dontMock('../favoriteStore');
 jest.dontMock('../../utils/storeUtils');
 jest.dontMock('../../constants/actionTypes');

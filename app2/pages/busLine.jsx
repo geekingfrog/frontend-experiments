@@ -2,6 +2,7 @@
 'use strict';
 
 var React = require('react');
+var Router = require('react-router');
 var lineActionCreator = require('../actions/lineActionCreator');
 var lineStore = require('../stores/lineStore');
 var globalStore = require('../stores/globalStore');
@@ -11,20 +12,20 @@ var BusDetails = require('../components/busDetails.jsx');
 
 module.exports = React.createClass({
 
-  mixins: [createStoreMixin(lineStore, globalStore)],
+  mixins: [createStoreMixin(lineStore, globalStore), Router.State],
 
   getStateFromStores() {
     return {
-      line: lineStore.getLine(this.props.params.lineId) || null
+      line: lineStore.getLine(this.getParams().lineId) || null
     }
   },
 
   componentWillMount() {
-    lineActionCreator.requestLine(this.props.params.lineId);
+    lineActionCreator.requestLine(this.getParams().lineId);
   },
 
   componentDidMount() {
-    var lineId = this.props.params.lineId;
+    var lineId = this.getParams().lineId;
     this.updateTimer = setInterval(function() {
       lineActionCreator.requestLine(lineId);
     }, 10 * 1000);
@@ -43,11 +44,10 @@ module.exports = React.createClass({
     var line = this.state.line;
 
     if(line) {
-      var lineId = line.get('id');
       return (
         <div>
-          <BusDetails lineId={lineId} direction="direct"/>
-          <BusDetails lineId={lineId} direction="reverse"/>
+          <BusDetails lineId={line.id} direction="direct"/>
+          <BusDetails lineId={line.id} direction="reverse"/>
         </div>
       )
     } else {

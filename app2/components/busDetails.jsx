@@ -20,7 +20,6 @@ module.exports = React.createClass({
   mixins: [createStoreMixin(lineStore)],
 
   getStateFromStores() {
-    console.log('getting line for props', this.props);
     return {line: lineStore.getLine(this.props.lineId)};
   },
 
@@ -33,14 +32,14 @@ module.exports = React.createClass({
     var line = this.state.line;
     if(!line) return <div>Loading details</div>;
 
-    var [from, to] = [line.get('from'), line.get('to')];
+    var [from, to] = [line.from, line.to];
     if(this.props.direction === 'reverse') {
       [from, to] = [to, from];
     }
 
-    var stops = this.props.direction === 'direct' ?
-      line.get('direct') :
-      line.get('reverse');
+    var stops = this.props.direction === 'direct'
+      ? line.direct
+      : line.reverse;
 
     if(!stops) {
       stops = <div> loading data for each stops... </div>
@@ -48,12 +47,12 @@ module.exports = React.createClass({
       stops = stops.map( (stop, idx) => {
         return <StopDetails
           key={idx}
-          stopName={stop.get('name')}
-          timeToNext={stop.get('timeToNext')}
-          lineId={line.get('id')}
+          stopName={stop.name}
+          timeToNext={stop.timeToNext}
+          lineId={line.id}
           direction={this.props.direction}
           />;
-      }).toJS();
+      });
     }
 
     return <div>

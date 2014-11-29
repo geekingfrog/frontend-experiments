@@ -8,6 +8,7 @@ var Promise = require('bluebird');
 var lineActionCreator = require('../actions/lineActionCreator');
 var lineStore = require('../stores/lineStore');
 var createStoreMixin = require('../mixins/createStoreMixin');
+var PropTypes = React.PropTypes;
 
 var BusLines = React.createClass({
 
@@ -21,11 +22,12 @@ var BusLines = React.createClass({
     var lines = lineStore.getLines();
     return {
       lines: lines,
-      isLoading: !lines
+      isLoading: !lines.size
     };
   },
 
   render: function() {
+    console.log('rendering linelisting with lines:', this.state.lines);
     return (
       (this.state.isLoading) ?
       <h2>loading</h2> :
@@ -52,19 +54,21 @@ var LineListing = React.createClass({
 
   render: function() {
     var input = this.state.input;
-    var filteredList = this.props.lines;
+    var filteredList = [];
 
-    if(input) {
-      var r = new RegExp(input, 'i');
-      filteredList = filteredList.filter(bus => {
-        return r.test(bus.get('id'));
-      });
+    var r = new RegExp(input, 'i');
+    for(var line of this.props.lines.values()) {
+      if(input) {
+        if(r.test(line.id)) filteredList.push(line);
+      } else {
+        filteredList.push(line);
+      }
     }
 
     var list = filteredList.map(bus => {
-      var params = {id: bus.get('id')};
-      return [<Link to="/line/:id" params={params}> {bus.get('id')} from: {bus.get('from')} -- to: {bus.get('to')} </Link>, <br/>];
-    }).toArray();
+      var params = {id: bus.id};
+      return [<Link to="/line/:id" params={params}> {bus.id} from: {bus.from} -- to: {bus.to} </Link>, <br/>];
+    });
 
     if(list.length) {
       list = <ul>{list}</ul>

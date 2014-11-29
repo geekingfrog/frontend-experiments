@@ -6,7 +6,6 @@
 jest.dontMock('../lineStore');
 jest.dontMock('../../constants/actionTypes');
 jest.dontMock('../../utils/storeUtils');
-jest.dontMock('immutable');
 
 describe('lineStore', function() {
 
@@ -60,9 +59,9 @@ describe('lineStore', function() {
     var line = lineStore.getLine('bus1');
 
     expect(lines.size).toBe(1);
-    expect(line.get('id')).toBe('bus1');
-    expect(line.get('from')).toBe('start');
-    expect(line.get('to')).toBe('end');
+    expect(line.id).toBe('bus1');
+    expect(line.from).toBe('start');
+    expect(line.to).toBe('end');
   });
 
   it('correctly store one line', function() {
@@ -71,9 +70,9 @@ describe('lineStore', function() {
     var line = lineStore.getLine('277');
 
     expect(lines.size).toBe(1);
-    expect(line.get('id')).toBe('277');
-    expect(line.get('direct').size).toBe(1);
-    expect(line.get('reverse').size).toBe(1);
+    expect(line.id).toBe('277');
+    expect(line.direct.length).toBe(1);
+    expect(line.reverse.length).toBe(1);
   });
 
 });
