@@ -35,6 +35,11 @@ gulp.task('watch', function() {
   return rebundle();
 });
 
+gulp.task('html', function() {
+  return gulp.src('app2/index.html')
+  .pipe(gulp.dest('./dist'));
+});
+
 gulp.task('server', ['watch'], function() {
   return gulp.src('./dist')
   .pipe(server({
@@ -43,4 +48,4 @@ gulp.task('server', ['watch'], function() {
   }));
 });
 
-gulp.task('default', ['watch', 'server']);
+gulp.task('default', ['html', 'watch', 'server']);
