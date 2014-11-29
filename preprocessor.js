@@ -1,3 +1,5 @@
+'use strict';
+
 var ReactTools = require('react-tools');
 var to5 = require('6to5');
 

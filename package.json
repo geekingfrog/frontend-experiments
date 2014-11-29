@@ -11,8 +11,10 @@
   "jest": {
     "scriptPreprocessor": "<rootDir>/preprocessor.js",
     "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react"
-    ]
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/es6-shim"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/setupEnvTest.js"
   },
   "author": "",
   "license": "ISC",
