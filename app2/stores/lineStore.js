@@ -15,8 +15,7 @@ var lineStore = createStore({
 var appDispatcher = require('../dispatcher/appDispatcher');
 
 lineStore.dispatchToken = appDispatcher.register(function(data) {
-  var {source, action} = data;
-  var {type, payload} = action;
+  var {source, action: {type, payload}} = data;
 
   if(type === actionTypes.REQUEST_LINES_SUCCESS) {
 

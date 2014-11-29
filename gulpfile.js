@@ -8,16 +8,22 @@ var reactify = require('reactify');
 var watchify = require('watchify');
 var to5 = require('6to5-browserify');
 var webserver = require('gulp-webserver');
+var cache = require('gulp-cached');
 
 var server = require('gulp-server-livereload');
 
-gulp.task('watch', function() {
-  var bundler = watchify(browserify('./app2/index.js', watchify.args));
-  // var bundler = watchify(browserify('./app2/test.js', watchify.args));
+var gReact = require('gulp-react');
+var gTo5 = require('gulp-6to5');
+gulp.task('compile', function() {
+  return gulp.src('app2/**/*')
+  .pipe(cache('compile'))
+  .pipe(gReact({stripTypes: true, keepExtension: true}))
+  .pipe(gTo5())
+  .pipe(gulp.dest('build'));
+});
 
-  // bundler.transform(reactify({es6: true}));
-  bundler.transform(reactify);
-  bundler.transform(to5);
+gulp.task('watch', ['compile'], function() {
+  var bundler = watchify(browserify('./build/index.js', watchify.args));
 
   bundler.on('update', rebundle);
 
@@ -32,6 +38,8 @@ gulp.task('watch', function() {
       gutil.log(gutil.colors.cyan('done rebundling in '+ (Date.now() - start) + 'ms'));
     });
   }
+
+  gulp.watch(['app2/**/*'], ['compile'])
 
   return rebundle();
 });
