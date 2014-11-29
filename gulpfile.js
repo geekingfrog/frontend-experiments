@@ -7,6 +7,7 @@ var browserify = require('browserify');
 var reactify = require('reactify');
 var watchify = require('watchify');
 var to5 = require('6to5-browserify');
+var webserver = require('gulp-webserver');
 
 var server = require('gulp-server-livereload');
 
@@ -40,12 +41,12 @@ gulp.task('html', function() {
   .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('server', ['watch'], function() {
-  return gulp.src('./dist')
-  .pipe(server({
-    livereload: true,
-    defaultFile: './index.html'
+gulp.task('webserver', function() {
+  return gulp.src('dist')
+  .pipe(webserver({
+    livereload: { enable: true }
   }));
 });
 
-gulp.task('default', ['html', 'watch', 'server']);
+
+gulp.task('default', ['html', 'watch', 'webserver']);
