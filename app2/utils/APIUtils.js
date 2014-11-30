@@ -1,11 +1,13 @@
 'use strict';
 
+// @flow
+
 var API_ROOT = 'http://localhost:8080/api/';
 var Promise = require('bluebird');
 var request = require('superagent');
 
 var APIUtils = {
-  getJSON(endpoint) {
+  getJSON(endpoint: string) {
     if(endpoint.indexOf(API_ROOT) === -1) {
       endpoint = API_ROOT + endpoint;
     }

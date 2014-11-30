@@ -1,5 +1,7 @@
 'use strict';
 
+// @flow
+
 var keyMirror = require('react/lib/keyMirror');
 module.exports = keyMirror({
   REQUEST_LINES: null,

@@ -19,24 +19,22 @@ module.exports = React.createClass({
 
   getStateFromStores() {
     var favorites = favoriteStore.getFavorites();
-    for(var [key, fav] of favorites.entries()) {
-      var line = lineStore.getLine(fav.lineId);
-    }
+    if(favorites) this.fetchFavorites(favorites);
     return { favorites };
   },
 
   fetchFavorites(favorites) {
     setTimeout(function() {
-      for(var [key, fav] of favorites.entries()) {
-        lineActionCreator.requestLine(fav.lineId);
-      }
+      favorites.forEach(function(key, val) {
+        lineActionCreator.requestLine(val.lineId);
+      });
     }, 0);
   },
 
   render() {
     console.log('got state:', this.state.favorites);
     var favs = [];
-    for(var fav of this.state.favorites.values()) {
+    this.state.favorites.forEach(function(key, val) {
       var key = fav.lineId+fav.direction+fav.stopName;
       favs.push(
         <LineHeader
@@ -51,7 +49,7 @@ module.exports = React.createClass({
           />
         </LineHeader>
       )
-    }
+    });
     return <div>{favs}</div>
   }
 });

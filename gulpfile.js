@@ -29,6 +29,7 @@ gulp.task('compile', function() {
 
   var other = gulp.src('app2/**/*.js')
   .pipe(cache('compileOther'))
+  .pipe(gReact({stripTypes: true}))
   .pipe(gTo5())
   .pipe(gulp.dest('build'));
 

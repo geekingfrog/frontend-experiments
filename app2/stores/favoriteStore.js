@@ -1,5 +1,7 @@
 'use strict';
 
+// @flow
+
 var { createStore } = require('../utils/storeUtils');
 var actionTypes = require('../constants/actionTypes');
 var appDispatcher = require('../dispatcher/appDispatcher');
@@ -8,8 +10,18 @@ var persistPrefix = 'fav-';
 
 var localStorage = window.localStorage;
 
+// declare class Map<K, V> {
+//   clear(): void;
+//   delete(key: K): boolean;
+//   forEach(callbackfn: (value: V, index: K, map: Map<K, V>) => void, thisArg?: any): void;
+//   get(key: K): V;
+//   has(key: K): boolean;
+//   set(key: K, value: V): Map<K, V>;
+//   size: number;
+// }
+
 // init from localstorage
-var _favorites = new Map();
+var _favorites: Map<string, string> = new Map();
 
 for(var i=0, n=localStorage.length; i<n; ++i) {
   var key = localStorage.key(i);

@@ -1,4 +1,5 @@
 'use strict';
+// @flow
 
 var appDispatcher = require('../dispatcher/appDispatcher');
 var actionTypes = require('../constants/actionTypes');
@@ -31,7 +32,7 @@ var lineActionCreator = {
 
   },
 
-  requestLine(id) {
+  requestLine(id: string) {
     appDispatcher.handleViewAction({
       type: actionTypes.REQUEST_LINE,
       payload: { id: id }
